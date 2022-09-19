@@ -147,6 +147,138 @@
             
 
 <div class="post">
+    <a href="/2022/09/19/MockingBird/">
+        <h2>
+            MockingBird
+        </h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/19
+        </span>
+    </div>
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            <h1 id="MockingBird使用"><a href="#MockingBird使用" class="headerlink" title="MockingBird使用"></a>MockingBird使用</h1><h2 id="Anaconda安装"><a href="#Anaconda安装" class="headerlink" title="Anaconda安装"></a><strong>Anaconda</strong>安装</h2><p>到镜像站下载<br><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/">Index of &#x2F;anaconda&#x2F;archive&#x2F; | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a><br>一般下一步到完成</p>
+<h2 id="配置Anaconda源"><a href="#配置Anaconda源" class="headerlink" title="配置Anaconda源"></a>配置Anaconda源</h2><pre><code class="shell">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ 
+conda config --set show_channel_urls yes
+</code></pre>
+<p>创建环境(需要python3.8以上环境运行MockingBird)</p>
+<pre><code class="shell">conda create -n 环境名 python=3.8
+</code></pre>
+<p>如果创建不成功，尝试修改 <code>%USERPROFILE%\.condarc</code>  文件为以下配置</p>
+<pre><code>channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/win-64/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/win-64/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/win-64/
+
+ssl_verify: false # 重点
+show_channel_urls: true
+</code></pre>
+<p>查看所有环境</p>
+<pre><code class="shell">conda info --envs
+</code></pre>
+<p>进入环境</p>
+<pre><code class="shell">conda activate 环境名
+</code></pre>
+<p>退出环境</p>
+<pre><code class="shell">deactivate 环境名
+</code></pre>
+<p>删除环境</p>
+<pre><code class="shell">conda remove -n 环境名 --all
+</code></pre>
+<p>详细安装参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/348120084">Anaconda使用教程一（新手友好） - 知乎 (zhihu.com)</a></p>
+<p>下载cuda<br><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a></p>
+<p>安装cuda</p>
+<p>选择自定义安装，可只勾选勾选cuda，不勾选vs code</p>
+<p>查看安装版本</p>
+<pre><code class="shell">nvcc --version
+</code></pre>
+<p>安装 <code>PyTorch</code> <a target="_blank" rel="noopener" href="https://pytorch.org/get-started/locally/">本地|派托奇 (pytorch.org)</a></p>
+<p>成功执行以下命令则进行下一步</p>
+<pre><code class="python">import torch
+torch.cuda.is_available()
+</code></pre>
+<p>下载 <code>ffmpeg</code> ，解压后将 <code>bin</code> 目录添加到环境变量<br><a target="_blank" rel="noopener" href="https://github.com/BtbN/FFmpeg-Builds/releases">Releases · BtbN&#x2F;FFmpeg-Builds (github.com)</a><br>查看版本</p>
+<pre><code class="shell">ffmpeg -version
+</code></pre>
+<p>下载项目</p>
+<pre><code class="shell">git clone git@github.com:babysor/MockingBird.git
+</code></pre>
+<p>在项目目录下执行</p>
+<pre><code class="shell">pip install -r requirements.txt
+pip install webrtcvad-wheels
+</code></pre>
+<p>若下载速度慢可以使用以下命令后重新下载</p>
+<pre><code class="shell">pip install pqi
+pqi use aliyun
+</code></pre>
+<p>安装过程报错 <code>Microsoft Visual C++ 14.0 or greater is required</code><br>需要安装<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/visual-cpp-build-tools/">Microsoft C++ 生成工具 - Visual Studio</a><br>![[Pasted image 20220919215536.png]]</p>
+<p>下载模型到 <code>MockingBird\synthesizer\saved_models</code> 目录<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1PI-hM3sn5wbeChRryX-RCQ">https://pan.baidu.com/s/1PI-hM3sn5wbeChRryX-RCQ</a> 提取码：2021</p>
+<p>执行 <code>python demo_toolbox.py</code> 启动<br>录制一小段录音，输入文字，即可播放<br>若加载模型出错<br><code>MockingBird\synthesizer\utils\symbols.py</code> 文件修改</p>
+<pre><code>_characters = &#39;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz12340!\&#39;(),-.:;? &#39;
+</code></pre>
+<p><code>MockingBird\synthesizer\hparams.py</code> 文件修改</p>
+<pre><code>use_gst = False
+use_ser_for_gst = False
+</code></pre>
+<p><img src="/MockingBird/123.png"><br>测试下来，目前效果还不理想</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+    </div>
+    <a href="/2022/09/19/MockingBird/" class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+    <a href="/2022/09/02/kali/">
+        <h2>
+            Kali
+        </h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/2
+        </span>
+    </div>
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            <h2 id="kali切换到root"><a href="#kali切换到root" class="headerlink" title="kali切换到root"></a>kali切换到root</h2><pre><code class="bash">sudo -i
+</code></pre>
+<h2 id="kali设置中文"><a href="#kali设置中文" class="headerlink" title="kali设置中文"></a>kali设置中文</h2><pre><code class="bash">sudo dpkg-reconfigure locales # 打开locales设置
+</code></pre>
+<p>使用空格勾选需要的语言，<code>Enter</code> 确认<br>选择 <code>zh_CN.UTF-8</code> 作为默认区域设置，<code>Enter</code><br>重启</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+    </div>
+    <a href="/2022/09/02/kali/" class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
     <a href="/2022/08/26/git/">
         <h2>
             Git
@@ -173,50 +305,6 @@
         
     </div>
     <a href="/2022/08/26/git/" class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-    <a href="/2022/08/26/hello-world/">
-        <h2>
-            Hello World
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2022/8/26
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-    </div>
-    <a href="/2022/08/26/hello-world/" class="go-post">
         阅读全文
     </a>
 </div>
