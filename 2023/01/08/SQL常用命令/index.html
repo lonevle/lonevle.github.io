@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-        <title>Categories | 胡桃的博客</title>
+        <title>SQL常用命令 | 胡桃的博客</title>
         <meta name="author" content="胡桃">
         <meta name="description" content="">
         <meta name="keywords" content="">
@@ -122,15 +122,101 @@
 </nav>
                     </div>
                     <div id="main">
-                         
-<div class="categories-tags">
+                        
+<div class="article">
+    <div>
+        <h1>SQL常用命令 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/1/8
+        </span>
+        
+        
+    </div>
+    <div class="content" v-pre>
+        <h2 id="USE"><a href="#USE" class="headerlink" title="USE"></a>USE</h2><pre><code class="sql">USE database -- 使用数据库
+</code></pre>
+<h2 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h2><pre><code class="sql">SELECT * FROM table -- 查询table表的全部数据
+SELECT ID FROM table -- 查询table表id列的数据
+SELECT ID,ID * 10 FROM table -- 查询table表id及id计算后的数据
+SELECT ID,ID * 10 AS &#39;newID&#39; FROM table -- 查询table表id及id计算后重命名的数据
+SELECT 10 * 10 -- 查询计算结果
+</code></pre>
+<h2 id="WHERE"><a href="#WHERE" class="headerlink" title="WHERE"></a>WHERE</h2><pre><code class="SQL">SELECT * FROM table ID = 1 -- 筛选条件
+</code></pre>
+<h2 id="ORDER"><a href="#ORDER" class="headerlink" title="ORDER"></a>ORDER</h2><pre><code class="SQL">SELECT * FROM table ORDER BY ID -- 按id排序（升序）
+SELECT * FROM table ORDER BY ID DESC -- 按id降序
+</code></pre>
+<h2 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h2><pre><code class="SQL">SELECT DISTINCT name FROM table -- 查询name去重后的结果
+</code></pre>
+<h2 id="AND-OR"><a href="#AND-OR" class="headerlink" title="AND OR"></a>AND OR</h2><pre><code class="SQL">SELECT * FROM table ID &gt; 1 AND ID &lt; 10 -- 查询id大于1并且小于10
+SELECT * FROM table ID &gt; 1 OR year = &#39;2006-01-02&#39; -- 查询i大于1或者年份为2006-01-02
+</code></pre>
+<h2 id="NOT"><a href="#NOT" class="headerlink" title="NOT"></a>NOT</h2><pre><code class="SQL">SELECT * FROM table NOT ID &gt; 10 -- 查询id小于等于10
+-- 条件否定 eg： NOT IN / NOT LIKE / NOT BETWEEN
+</code></pre>
+<h2 id="IN"><a href="#IN" class="headerlink" title="IN"></a>IN</h2><pre><code class="SQL">SELECT * FROM table ID IN (10,20,30) -- 查询id为10，20，30
+SELECT * FROM table ID NOT IN (10,20,30) -- 查询id不为10，20，30
+</code></pre>
+<h2 id="BETWEEN"><a href="#BETWEEN" class="headerlink" title="BETWEEN"></a>BETWEEN</h2><pre><code class="SQL">SELECT * FROM table ID [NOT] BETWEEN 10 AND 20 -- 查询id[不]在10和20之间
+</code></pre>
+<h2 id="LIKE"><a href="#LIKE" class="headerlink" title="LIKE"></a>LIKE</h2><pre><code class="SQL">SELECT * FROM table name LIKE &#39;p%&#39; -- 以p开始的名字
+SELECT * FROM table name LIKE &#39;%p&#39; -- 以p结尾
+SELECT * FROM table name LIKE &#39;%p%&#39; -- 包含p
+SELECT * FROM table name LIKE &#39;__p&#39; -- 第二个字符为p
+-- % 匹配任意数量的任意字符
+-- _ 匹配单个任意字符
+</code></pre>
+<h2 id="REGEXP-正则"><a href="#REGEXP-正则" class="headerlink" title="REGEXP 正则"></a>REGEXP 正则</h2><pre><code class="SQL">SELECT * FROM table name REGEXP &#39;pp|nn&#39; -- 使用正则
+</code></pre>
+<h2 id="IS"><a href="#IS" class="headerlink" title="IS"></a>IS</h2><pre><code class="SQL">SELECT * FROM table name IS NULL -- 匹配name为空
+SELECT * FROM table name IS NOT NULL -- 匹配name不为空
+-- NULL 空
+-- NOT NULL 不为空
+</code></pre>
+<h2 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h2><pre><code class="SQL">SELECT * FROM table name IS NOT NULL LIMIT 10 -- name不为空的10条
+SELECT * FROM table name IS NOT NULL LIMIT 20, 10 -- 跳过20条，再取10条
+-- 用于分页显示
+</code></pre>
+<h2 id="JOIN"><a href="#JOIN" class="headerlink" title="JOIN"></a>JOIN</h2><pre><code class="SQL">SELECT * FROM table JOIN table2 ON table.id = table2.id -- 内联表查询
+SELECT
+    * 
+FROM table a 
+LEFT JOIN table1 b
+    ON a.id = b.id
+-- 外连表查询 左连接
+SELECT
+    * 
+FROM table a 
+RIGHT JOIN table1 b
+    ON a.id = b.id
+-- 外连表查询 右连接
+SELECT name, a.id FROM table a JOIN table2 b ON a.id = b.id -- 添加别名
+SELECT name, a.id FROM database.table a JOIN database2.table2 b ON a.id = b.id -- 不同数据库表连接查询
+SELECT a.name,b.name FROM table a JOIN table b ON table.id = table2.user -- 单表连接
+SELECT
+    * 
+FROM table a 
+JOIN table1 b
+    ON a.id = b.id
+JOIN table2 c
+    ON a.name = c.name 
+-- 多表连接查询
+SELECT
+    * 
+FROM table a 
+JOIN table1 b
+    ON a.id = b.id
+    AND a.name = b.name
+-- 多条件连接
+</code></pre>
+
+    </div>
     
-    <div class="all-s">
-        
-    </div>
-    <div id="archives">
-        
-    </div>
 </div>
                          
 <footer id="footer">
